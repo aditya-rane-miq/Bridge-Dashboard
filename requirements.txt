@@ -2,3 +2,11 @@ streamlit
 pandas
 numpy
 scikit-learn
+transformers
+torch
+PyMuPDF
+PyPDF2
+fpdf
+python-dotenv
+openai>=1.0.0
+pydrive2
