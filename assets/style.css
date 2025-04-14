@@ -1,0 +1,53 @@
+body {
+    background-color: #0e1117;
+    color: white;
+}
+
+.main {
+    background-color: #0e1117;
+    color: white;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #00FFFF;
+}
+
+.sidebar .sidebar-content {
+    background-color: #1c1f26;
+}
+
+.summary-table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.summary-table td {
+    border: 1px solid #ffff;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.summary-table tr:nth-child(even) {
+    background-color: #111;
+}
+
+.summary-table tr:hover {
+    background-color: #222;
+}
+
+.summary-table td ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.reportview-container .main footer {
+    visibility: hidden;
+}
+
+.stDownloadButton > button, .stButton > button {
+    background-color: #ffcc70;
+    color: black; /* 👈 This makes the button text black */
+}
