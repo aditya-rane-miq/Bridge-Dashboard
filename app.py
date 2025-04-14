@@ -8,14 +8,67 @@ import json
 
 st.set_page_config(page_title="B.R.I.D.G.E.", layout="wide")
 
-# Add logo and title
-col1, col2 = st.columns([1, 10])
-with col1:
-    st.image("https://cdn-icons-png.flaticon.com/512/4712/4712100.png", width=80)
-with col2:
-    st.title("B.R.I.D.G.E. – Bias Removal in Decisions for Gender Equality")
+# Global Style
+st.markdown("""
+    <style>
+    body {
+        background-color: #0e1117;
+        color: white;
+    }
+    .main {
+        background-color: #0e1117;
+        color: white;
+    }
+    h1, h2, h3, h4, h5 {
+        color: #ffcc70;
+    }
+    .sidebar .sidebar-content {
+        background-color: #1c1f26;
+    }
+    .summary-table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: #000;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .summary-table td {
+        border: 1px solid #444;
+        padding: 10px;
+        vertical-align: top;
+    }
+    .summary-table tr:nth-child(even) {
+        background-color: #111;
+    }
+    .summary-table tr:hover {
+        background-color: #222;
+    }
+    .summary-table td ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+    .reportview-container .main footer {
+        visibility: hidden;
+    }
+    .stDownloadButton>button {
+        background-color: #ffcc70;
+        color: black;
+        border-radius: 10px;
+    }
+    .stButton>button {
+        background-color: #ffcc70;
+        color: black;
+        border-radius: 10px;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-# Directories
+with st.sidebar:
+    st.image("https://cdn-icons-png.flaticon.com/512/4712/4712100.png", width=80)
+    st.markdown("### **B.R.I.D.G.E. - Bias Removal in Decisions for Gender Equality**")
+
+
+# Folder structure
 RESUME_FOLDER = "Input Resumes"
 SELECTED_FOLDER = "Selected Resumes"
 REJECTED_FOLDER = "Rejected Resumes"
@@ -24,39 +77,51 @@ os.makedirs(RESUME_FOLDER, exist_ok=True)
 os.makedirs(SELECTED_FOLDER, exist_ok=True)
 os.makedirs(REJECTED_FOLDER, exist_ok=True)
 
-# Helper: Get files and assign random candidate IDs
-resume_files = [f for f in os.listdir(RESUME_FOLDER) if f.endswith(".pdf")]
-id_map = {f"Candidate-{uuid.uuid4().hex[:6].upper()}": f for f in resume_files}
-
-tabs = st.tabs([
-    "AI-Powered Blind Recruitment",
-    "Diverse Candidate Sourcing",
-    "Bias Detection in Feedback",
-    "Data-Driven Promotions",
-    "AI-Powered Salary Audits",
-    "Sentiment Analysis in Surveys",
-    "Network Analysis",
-    "Smart Matching for Mentorship"
+# Sidebar navigation
+st.sidebar.title("📌 Navigation")
+section = st.sidebar.radio("Choose a Section:", [
+    "Recruitment & Hiring",
+    "Manager Feedback & Promotions",
+    "Workplace Culture"
 ])
 
-with tabs[0]:
-    st.header("AI-Powered Blind Recruitment")
-    st.image("https://cdn-icons-png.flaticon.com/512/4331/4331067.png", width=50)
-    st.markdown("Select a resume from the local folder. AI will redact bias terms for a fairer review.")
+tab_options = {
+    "Recruitment & Hiring": {
+        "AI-Powered Blind Recruitment": 0,
+        "Diverse Candidate Sourcing": 1
+    },
+    "Manager Feedback & Promotions": {
+        "Bias Detection in Feedback": 2,
+        "Data-Driven Promotions": 3,
+        "AI-Powered Salary Audits": 4
+    },
+    "Workplace Culture": {
+        "Sentiment Analysis in Surveys": 5,
+        "Network Analysis": 6,
+        "Smart Matching for Mentorship": 7
+    }
+}
 
-    # Step 1: Load resumes and map to anonymized IDs
+tab_names = list(tab_options[section].keys())
+selected_tab = st.sidebar.selectbox("Choose a Tab:", tab_names)
+
+# Tab logic
+tab_index = tab_options[section][selected_tab]
+
+# Individual tabs
+if tab_index == 0:
+    st.header("🤖 AI-Powered Blind Recruitment")
+    st.markdown("**Upload and analyze resumes with AI to remove gender bias for fairer hiring decisions.**")
+
     resume_files = [f for f in os.listdir(RESUME_FOLDER) if f.endswith(".pdf")]
     file_id_map = {f"Candidate {i+1}": f for i, f in enumerate(resume_files)}
 
-    # if file_id_map:
-    #     selected_id = st.selectbox("Select a Candidate", list(file_id_map.keys()))
-        
     if "selected_id" not in st.session_state:
         st.session_state.selected_id = None
 
-    selected_id = st.selectbox("Select a Candidate", list(file_id_map.keys()), key="candidate_select")
+    selected_id = st.selectbox("👤 Select a Candidate", list(file_id_map.keys()), key="candidate_select")
 
-    if st.button("Select Candidate"):
+    if st.button("🔍 Analyze Resume"):
         st.session_state.selected_id = selected_id
 
     if st.session_state.selected_id:
@@ -68,170 +133,113 @@ with tabs[0]:
         with st.spinner("Analyzing resume using AI..."):
             text, redacted_pdf, bias_terms, summary_info = processor.process_resume(uploaded_file)
 
-        # st.write(summary_info)
-
-        # Tabular Info
         st.subheader("📋 Resume Summary")
-
         if isinstance(summary_info, dict) and summary_info:
-            info_keys = [
-                "Summary",
-                "Suitable Roles",
-                "Education",
-                "Experience",
-                "Projects",
-                "Skills",
-                "Certifications"
-            ]
-
+            info_keys = ["Summary", "Suitable Roles", "Education", "Experience", "Projects", "Skills", "Certifications"]
             data = []
             for key in info_keys:
                 value = summary_info.get(key)
-
-                # Skip empty values
-                if not value or value == [] or value == {} or value == "":
+                if not value or value in [[], {}, ""]:
                     continue
-
                 if isinstance(value, list):
                     value = "<ul>" + "".join(f"<li>{str(v)}</li>" for v in value) + "</ul>"
                 elif isinstance(value, dict):
                     value = "<br>".join(f"{k}: {v}" for k, v in value.items())
-
                 data.append((key, value))
 
-
-            st.markdown("""
-                <style>
-                .summary-table {
-                    border-collapse: collapse;
-                    width: 100%;
-                    background-color: #000;
-                    color: #fff;
-                    font-family: sans-serif;
-                }
-                .summary-table td {
-                    border: 1px solid #444;
-                    padding: 10px;
-                    vertical-align: top;
-                }
-                .summary-table tr:nth-child(even) {
-                    background-color: #111;
-                }
-                .summary-table tr:hover {
-                    background-color: #222;
-                }
-                .summary-table td ul {
-                    margin: 0;
-                    padding-left: 20px;
-                }
-                </style>
-            """, unsafe_allow_html=True)
-
-
-            table_html = "<table class='summary-table'>"
-            for label, val in data:
-                table_html += f"<tr><td><strong>{label}</strong></td><td>{val}</td></tr>"
-            table_html += "</table>"
-
+            table_html = "<table class='summary-table'>" + "".join(
+                f"<tr><td><strong>{label}</strong></td><td>{val}</td></tr>" for label, val in data
+            ) + "</table>"
             st.markdown(table_html, unsafe_allow_html=True)
         else:
-            st.warning("Could not extract summary from the resume.")
+            st.warning("⚠️ Could not extract summary from the resume.")
 
-
-
-        st.success("Resume processed successfully!")
+        st.success("✅ Resume processed successfully!")
 
         if bias_terms:
-            st.warning("Bias terms detected.")
+            st.warning("⚠️ Bias terms detected.")
         else:
-            st.warning("No bias terms detected.")
+            st.success("🎉 No bias terms detected!")
 
         st.download_button(
-            label="⬇️ Download Redacted PDF",
+            label="⬇️ Download Redacted Resume",
             data=redacted_pdf,
             file_name="redacted_resume.pdf",
             mime="application/pdf"
         )
 
-        decision = st.radio("Decision:", ["Select", "Reject"])
+        decision = st.radio("📤 Final Decision:", ["Select", "Reject"])
         if st.button("Submit Decision"):
             destination_folder = SELECTED_FOLDER if decision == "Select" else REJECTED_FOLDER
             os.makedirs(destination_folder, exist_ok=True)
-
             original_filename = file_id_map[st.session_state.selected_id]
             source_path = os.path.join(RESUME_FOLDER, original_filename)
             destination_path = os.path.join(destination_folder, original_filename)
-
             os.rename(source_path, destination_path)
-            st.success(f"Candidate moved to `{decision}` folder.")
+            st.success(f"📁 Candidate moved to `{decision}` folder.")
             st.info(f"Original File Name: **{original_filename}**")
-            st.subheader("Bias terms detected were: ")
+            st.subheader("🛑 Bias terms detected were:")
             st.write(bias_terms)
-            
-            # Optionally clear the session state to refresh
             st.session_state.selected_id = None
 
-
-
-# Other tabs (static info for now)
-with tabs[1]:
-    st.header("Diverse Candidate Sourcing")
+elif tab_index == 1:
+    st.header("🌍 Diverse Candidate Sourcing")
     st.image("https://cdn-icons-png.flaticon.com/512/3094/3094835.png", width=50)
-    st.write("""
-        - Analyzes job descriptions for gender-biased language and suggests improvements.
-        - Targets underrepresented groups with AI-driven outreach strategies.
+    st.markdown("""
+        - Analyze job descriptions to eliminate bias.
+        - Use AI to engage diverse and underrepresented groups.
     """)
 
-with tabs[2]:
-    st.header("Bias Detection in Feedback")
+elif tab_index == 2:
+    st.header("📝 Bias Detection in Feedback")
     st.image("https://cdn-icons-png.flaticon.com/512/6565/6565627.png", width=50)
-    st.write("""
-        - AI flags subjective or biased language in feedback.
-        - Compares evaluation trends across genders to highlight disparities.
+    st.markdown("""
+        - Automatically detect biased language in reviews.
+        - Compare feedback trends by gender.
     """)
 
-with tabs[3]:
-    st.header("Data-Driven Promotions")
+elif tab_index == 3:
+    st.header("📈 Data-Driven Promotions")
     st.image("https://cdn-icons-png.flaticon.com/512/4129/4129623.png", width=50)
-    st.write("""
-        - Tracks contributions, leadership, and peer feedback using data.
-        - Identifies promotion-ready talent based on objective metrics.
+    st.markdown("""
+        - Highlight top performers using objective KPIs.
+        - Empower fair career advancement.
     """)
 
-with tabs[4]:
-    st.header("AI-Powered Salary Audits")
+elif tab_index == 4:
+    st.header("💰 AI-Powered Salary Audits")
     st.image("https://cdn-icons-png.flaticon.com/512/2038/2038854.png", width=50)
-    st.write("""
-        - Audits salary data in real-time to identify pay gaps.
-        - Recommends salary corrections using factors like role, performance, and experience.
+    st.markdown("""
+        - Audit compensation for potential gender gaps.
+        - Suggest equitable adjustments in real-time.
     """)
 
-with tabs[5]:
-    st.header("Sentiment Analysis in Surveys")
+elif tab_index == 5:
+    st.header("💬 Sentiment Analysis in Surveys")
     st.image("https://cdn-icons-png.flaticon.com/512/990/990168.png", width=50)
-    st.write("""
-        - Analyzes internal surveys to find gender-based sentiment differences.
-        - Provides actionable insights to improve inclusivity and engagement.
+    st.markdown("""
+        - Detect sentiment differences by gender.
+        - Improve organizational inclusivity.
     """)
 
-with tabs[6]:
-    st.header("Network Analysis")
+elif tab_index == 6:
+    st.header("🔗 Network Analysis")
     st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=50)
-    st.write("""
-        - Maps collaboration and communication patterns.
-        - Ensures women are included in high-impact project opportunities.
+    st.markdown("""
+        - Track collaboration patterns.
+        - Ensure women have access to high-impact projects.
     """)
 
-with tabs[7]:
-    st.header("Smart Matching for Mentorship")
+elif tab_index == 7:
+    st.header("🤝 Smart Matching for Mentorship")
     st.image("https://cdn-icons-png.flaticon.com/512/3771/3771602.png", width=50)
-    st.write("""
-        - AI pairs mentees with mentors based on aligned goals and skills.
-        - Encourages reverse mentorship to foster inclusive leadership.
+    st.markdown("""
+        - Match mentors and mentees based on shared values.
+        - Foster leadership through reverse mentoring.
     """)
 
 # Footer
 st.markdown("""
-    <hr>
-    <p style='text-align: center;'>© 2025 B.R.I.D.G.E. – AI for Gender Equality | Powered by Streamlit</p>
+    <hr style="border: 1px solid #333;">
+    <p style='text-align: center; color: gray;'>© 2025 B.R.I.D.G.E. – AI for Gender Equality | Powered by Streamlit</p>
 """, unsafe_allow_html=True)
