@@ -7,7 +7,6 @@ from transformers import BertTokenizer, BertForSequenceClassification, Trainer, 
 from datasets import Dataset
 import torch
 
-# -------------- Label Mapping ----------------
 def label_map(label):
     mapping = {
         "Sentiment Bias": 0,
@@ -18,11 +17,11 @@ def label_map(label):
     }
     return mapping[label]
 
-# -------------- Tokenizer ----------------
+
 def tokenize_function(examples):
     return tokenizer(examples['feedback_text'], padding="max_length", truncation=True)
 
-# -------------- Training Function ----------------
+
 def train_model():
     train_df = pd.read_csv("Feedbacks/gender_bias_training_dataset.csv")
     train_df['label'] = train_df['label'].apply(label_map)
@@ -58,7 +57,6 @@ def train_model():
     model.save_pretrained("./sentiment_bias_model")
     tokenizer.save_pretrained("./sentiment_bias_model")
 
-# -------------- Prediction Function ----------------
 def predict_bias(input_df):
     from transformers import BertTokenizer, BertForSequenceClassification, Trainer
     from datasets import Dataset
@@ -89,7 +87,6 @@ def predict_bias(input_df):
     test_df['predicted_bias_flag'] = [label_map_back[label] for label in predicted_labels]
     return test_df
 
-# -------------- Visualization Function ----------------
 def show_bias_visualizations(test_df):
     import streamlit as st
 

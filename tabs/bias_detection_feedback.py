@@ -27,14 +27,13 @@ def run():
     st.title("🔍 Bias Detection in Manager Feedback")
     st.write("This module identifies and summarizes gender-related bias in manager feedback using an AI model.")
 
-    # Upload option
+  
     uploaded_file = st.file_uploader("📤 Upload Feedback CSV", type="csv", help="Required columns: feedback_text, gender, department, manager_name")
 
     df = None
     if uploaded_file:
         df = pd.read_csv(uploaded_file)
-        
-        # Validate columns
+     
         missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
         if missing_cols:
             st.error(f"❌ The following required columns are missing: {', '.join(missing_cols)}")
@@ -49,7 +48,6 @@ def run():
             st.warning("⚠️ No default test file found. Please upload a file to begin.")
             return
 
-    # Run prediction
     if st.button("🧠 Run Bias Detection Model"):
         with st.spinner("Analyzing feedback for gender bias..."):
             labeled_df = predict_bias(df)
