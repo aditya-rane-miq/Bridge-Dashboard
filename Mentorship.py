@@ -160,7 +160,7 @@ def match_employee_with_training(employee, mentors, tokenizer, model):
 
         similarity = cosine_similarity([emp_embed], [mentor_embed])[0][0]
         matches.append({
-            "Assigned Training Couses": training_text,
+            "Assigned Training Courses": training_text,
             "Similarity Score": round(similarity, 2)
         })
 
