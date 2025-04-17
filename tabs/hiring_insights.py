@@ -65,7 +65,7 @@ def run():
         with col4:
             st.subheader("🌍 Gender by BU Region")
             region_gender = df.groupby(['BU Region', 'Gender']).size().unstack().fillna(0)
-            fig4, ax4 = plt.subplots(figsize=(10, 5))
+            fig4, ax4 = plt.subplots()
             region_gender.plot(kind='bar', stacked=True, ax=ax4, colormap="Accent")
             ax4.set_ylabel("Count")
             st.pyplot(fig4)

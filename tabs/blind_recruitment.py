@@ -17,7 +17,7 @@ def run():
     if "selected_id" not in st.session_state:
         st.session_state.selected_id = None
 
-    selected_id = st.selectbox("👤 Select a Candidate", list(file_id_map.keys()), key="candidate_select")
+    selected_id = st.selectbox("👤 Select a Candidate Anonymously", list(file_id_map.keys()), key="candidate_select")
 
     if st.button("🔍 Analyze Resume"):
         st.session_state.selected_id = selected_id
