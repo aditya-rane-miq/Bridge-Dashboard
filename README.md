@@ -39,6 +39,11 @@
 
 
 ---
+## 📋 Instruction to Run the Application
+
+- **Workplace culture -> Sentiment Analysis in Survey :** Manually Upload the file 'Engagement_survey_Raw_data.xlsx' provided under Bridge-Dashboard folder to run the tool  
+- **Workplace culture -> Smart Matching for Mentorship :** The 'Inclusive_Mentorship_Program_Raw_data.xlsx' file from the Bridge-Dashboard folder is automatically read by the tool, so no manual upload is necessary. The tool will prompt the user for certain inputs via the UI.
+
 
 ## 📁 Project Structure
 
