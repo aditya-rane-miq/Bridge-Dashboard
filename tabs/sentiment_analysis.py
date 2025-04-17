@@ -7,6 +7,7 @@ import altair as alt
 
 def run():
     # === Streamlit Page Setup ===
+# st.set_page_config(page_title="Engagement Dashboard", layout="wide")
     st.markdown("<h1 style='text-align: center;'>📊 Engagement Insights Dashboard</h1>", unsafe_allow_html=True)
 
     # === Custom CSS to Adjust Sidebar and Layout ===
@@ -102,7 +103,7 @@ def run():
         card_style = """
         <style>
         .metric-card {
-            background-color: #F9FAFB;
+            background-color: #E5E7EB;
             padding: 1.2rem;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -114,7 +115,7 @@ def run():
             justify-content: center;
         }
         .metric-title {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #6B7280;
             margin-bottom: 0.3rem;
         }
@@ -153,18 +154,18 @@ def run():
             render_metric("Positive Sentiment %", f"{get_val('Positive Sentiment %')}%", "😊")
             render_metric("% At-Risk Employees", f"{get_val('% At-Risk Employees (Heat < 0.3)')}%", "⚠️")
             top_theme = get_val("Top Mentioned Themes").split(",")[0].strip()
-            render_metric("Top Theme", top_theme, "🏆")
+            render_metric("Top Engagement Theme", top_theme, "🏆")
 
         with col3:
             render_metric("Negative Sentiment %", f"{get_val('Negative Sentiment %')}%", "☹️")
-            render_metric("Sentiment Gap (M - F)", get_val("Sentiment Gap (M - F)"), "➖")
+            render_metric("Sentiment Gap (F - M)", get_val("Sentiment Gap (M - F)"), "➖")
             bottom_theme = get_val("Bottom Mentioned Themes").split(",")[0].strip()
-            render_metric("Bottom Theme", bottom_theme, "📉")
+            render_metric("Bottom Engagement Theme", bottom_theme, "📉")
 
         with col4:
             render_metric("Job Satisfaction Score", get_val("Avg Job Satisfaction Index"), "💼")
-            render_metric("Lowest Dept", get_val("Lowest Scoring Department"), "🏢")
-            render_metric("Highest Dept", get_val("Highest Scoring Department"), "🏢")
+            render_metric("Lowest Engagement Department", get_val("Lowest Scoring Department"), "🏢")
+            render_metric("Highest Engagement Department", get_val("Highest Scoring Department"), "🏢")
 
 
 
@@ -327,11 +328,20 @@ def run():
                 'Dept' in inclusion_analysis_df1.columns and 'Inclusion Score' in inclusion_analysis_df1.columns:
                 st.markdown("<div style='height: 95px;'></div>", unsafe_allow_html=True)
 
+                # Add non-null label for color
+                inclusion_analysis_df1['Color Label'] = 'Inclusion Score'
+
                 chart = alt.Chart(inclusion_analysis_df1).mark_bar(size=55).encode(
-                    x=alt.X('Dept:N', title='Department', axis=alt.Axis(labelAngle=-45,domain=True)),
+                    x=alt.X('Dept:N', title='Department', axis=alt.Axis(labelAngle=-45, domain=True)),
                     y=alt.Y('Inclusion Score:Q', title='Inclusion Score'),
-                    color=alt.value('#EECA3B'),
+                    color=alt.Color('Color Label:N',
+                                    scale=alt.Scale(range=['#EECA3B']),
+                                    legend=alt.Legend(
+                                        orient='top',
+                                        direction='horizontal',title=None
+                                    )),
                     tooltip=['Dept:N', 'Inclusion Score:Q']
+
                 ).properties(
                     height=350
                 ).configure_view(
@@ -347,13 +357,13 @@ def run():
 
         col5, col6 = st.columns(2)
         with col5:
-            st.write("**Top Survey Themes**:")
+            st.subheader("📋 Top Survey Themes")
             st.write(top_themes)
         with col6:
-            st.write("**Bottom Survey Themes**:")
+            st.subheader("📋 Bottom Survey Themes")
             st.write(bottom_themes)
 
         # === LLM Insight ===
         st.markdown("<hr style='border:1px solid #ccc; margin-top: 10px; margin-bottom: 10px;'>", unsafe_allow_html=True)
-        st.markdown("## 🧠 Action Centre")
+        st.markdown("## 🧠 AI-Powered Action Centre")
         st.info(llm_insight)
