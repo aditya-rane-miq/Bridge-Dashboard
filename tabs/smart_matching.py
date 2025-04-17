@@ -8,8 +8,10 @@ complete_df=load_backend_data()
 
 # # UI
 def run():
-    st.set_page_config(page_title="Mentor Matcher", layout="wide")
-    st.title("🤝 Smart Mentorship & Reverse Mentorship Matcher")
+    # st.set_page_config(page_title="Mentor Matcher", layout="wide")
+    st.markdown("<h1 style='font-size: 40px; text-align: center;'>🤝 Smart Mentorship & Reverse Mentoring Matcher</h1>", unsafe_allow_html=True)
+
+    # st.title("🤝Smart Mentorship & Reverse Mentoring Matcher")
     # Centered radio button for mentorship type selection
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
