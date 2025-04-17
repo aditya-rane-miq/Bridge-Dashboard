@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sentiment_analysis import run_sentiment_analysis
+from Engagement_Survey import run_sentiment_analysis
 import altair as alt
 
 def run():
