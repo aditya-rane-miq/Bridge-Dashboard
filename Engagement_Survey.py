@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
-from langchain.llms import HuggingFaceHub
+from langchain_community.llms import HuggingFaceHub
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from dotenv import load_dotenv
 import os
+
 def run_sentiment_analysis(uploaded_file):
     # Load environment variable for Hugging Face
     load_dotenv()
@@ -123,9 +124,7 @@ def run_sentiment_analysis(uploaded_file):
 
         # Prepare the prompt for LLM analysis
 # Define the prompt template in Mistral-compatible format
-    template = """ Below are the Key Insights and Recommendations based on our engagement survey:
-        
-    {insights} """
+    template = """ Below are the Key Insights and Recommendations based on our engagement survey:"""
 
     # Build the LangChain prompt
     prompt = PromptTemplate(template=template, input_variables=["insights"])
