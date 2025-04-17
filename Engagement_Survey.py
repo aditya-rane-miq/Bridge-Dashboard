@@ -124,7 +124,7 @@ def run_sentiment_analysis(uploaded_file):
         # Prepare the prompt for LLM analysis
 # Define the prompt template in Mistral-compatible format
     template = """ Below are the Key Insights and Recommendations based on our engagement survey:
-
+        
     {insights} """
 
     # Build the LangChain prompt
