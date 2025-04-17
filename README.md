@@ -23,9 +23,9 @@
 - **Salary Audit AI:** Detects and addresses pay disparities by analyzing role, experience, and performance data.
 
 ### 🏢 Workplace Culture & Growth
-- **Sentiment Analysis:** Extracts gender-based engagement trends from employee surveys using NLP.
+- **Sentiment Analysis:** This tool analyzes employee engagement survey data to provide insights into sentiment, job satisfaction, Engagement Heatscore and inclusion. It highlights performance gaps across demographics, identifies at-risk groups, and surfaces key engagement themes. An AI-generated executive summary, powered by a Large Language Model (LLM), offers actionable recommendations for leadership to improve engagement.
 - **Collaboration Network Mapping:** Ensures equal access to high-visibility, high-impact projects.
-- **Smart Mentorship Matching:** Connects women with aligned mentors and suggests reverse mentoring pathways.
+- **Smart Mentorship Matching:** Connects individuals with mentors based on skills, goals, and experience—regardless of gender. Suggests reverse mentoring opportunities and personalized training resources to support growth in key development areas.
 
 ---
 
@@ -33,9 +33,10 @@
 
 - **Languages:** Python  
 - **Libraries:** spaCy, Transformers, Scikit-learn, Pandas, NetworkX, Matplotlib  
-- **NLP Models:** BERT, RoBERTa (via HuggingFace)  
+- **NLP Models:** BERT, RoBERTa (via HuggingFace), Mistral-7B-Instruct-v0.3, all-MiniLM-L6-v2
 - **Deployment (optional):** Streamlit / Flask  
-- **Data Sources:** Resume sets, employee reviews, survey results (mock or real)
+- **Data Sources:** Resume sets, employee reviews, survey results (mock or real) , HR Data (mock or real) , LMS Data (mock or real), Performance data from Yearly Goals/PI review (mock or real),Individual development plan of employee data (mock or real)
+
 
 ---
 
