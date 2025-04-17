@@ -168,7 +168,7 @@ def match_employee_with_training(employee, mentors, tokenizer, model):
     sorted_matches = sorted(matches, key=lambda x: x["Similarity Score"], reverse=True)
     unique_trainings = {}
     for match in sorted_matches:
-        training = match["Assigned Training Couses"]
+        training = match["Assigned Training Courses"]
         if training not in unique_trainings:
             unique_trainings[training] = match
 
