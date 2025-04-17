@@ -230,6 +230,8 @@ def run():
                         stroke=None  # Remove outer border
                     ).configure_axis(
                         grid=False  # Remove background grid lines
+                    ).configure_axisY(
+                        domain=True  # 👈 Ensures the y-axis line appears
                     ).configure_title(
                                 fontSize=6,  # 👈 Adjust title font size here
                                 anchor='start'
@@ -265,6 +267,8 @@ def run():
                     stroke=None
                 ).configure_axis(
                     grid=False
+                ).configure_axisY(
+                    domain=True  # 👈 Ensures the y-axis line appears
                 ).configure_title(
                 fontSize=6,  # 👈 Adjust title font size here
                 anchor='start'
@@ -312,6 +316,8 @@ def run():
                     height=350
                 ).configure_view(
                     stroke=None
+                ).configure_axisY(
+                    domain=True  # 👈 Ensures the y-axis line appears
                 ).configure_axis(
                     grid=False
                 )
@@ -346,6 +352,10 @@ def run():
                     height=350
                 ).configure_view(
                     stroke=None
+                ).configure_axisY(
+                    domain=True  # 👈 Ensures the y-axis line appears
+                ).configure_axisY(
+                    domain=True  # 👈 Ensures the y-axis line appears
                 ).configure_axis(
                     grid=False
                 )
