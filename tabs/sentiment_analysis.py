@@ -103,7 +103,7 @@ def run():
         card_style = """
         <style>
         .metric-card {
-            background-color: #E5E7EB;
+            background-color: #DBEAFE;
             padding: 1.2rem;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -120,7 +120,7 @@ def run():
             margin-bottom: 0.3rem;
         }
         .metric-value {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: #111827;
             overflow-wrap: break-word;
