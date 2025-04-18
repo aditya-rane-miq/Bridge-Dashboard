@@ -6,6 +6,11 @@ import seaborn as sns
 from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
 from datasets import Dataset
 import torch
+from transformers import BertTokenizer, BertForSequenceClassification, Trainer
+
+tokenizer = BertTokenizer.from_pretrained("./sentiment_bias_model")
+model = BertForSequenceClassification.from_pretrained("./sentiment_bias_model")
+trainer = Trainer(model=model, tokenizer=tokenizer)
 
 def label_map(label):
     mapping = {
@@ -57,15 +62,14 @@ def train_model():
     model.save_pretrained("./sentiment_bias_model")
     tokenizer.save_pretrained("./sentiment_bias_model")
 
-def predict_bias(input_df):
-    from transformers import BertTokenizer, BertForSequenceClassification, Trainer
-    from datasets import Dataset
+def predict_bias():
+ 
 
-    test_df = input_df.copy()
+    # test_df = input_df.copy()
+    test_df=pd.read_csv("Feedbacks/gender_bias_testing_dataset.csv")
     test_dataset = Dataset.from_pandas(test_df[['feedback_text']])
 
-    tokenizer = BertTokenizer.from_pretrained("./sentiment_bias_model")
-    model = BertForSequenceClassification.from_pretrained("./sentiment_bias_model")
+    
 
     def tokenize_function(examples):
         return tokenizer(examples['feedback_text'], padding="max_length", truncation=True)
@@ -85,6 +89,7 @@ def predict_bias(input_df):
     }
 
     test_df['predicted_bias_flag'] = [label_map_back[label] for label in predicted_labels]
+    test_df.to_csv("Feedbacks/testing_bias_dataset_labeled_predictions_1.csv", index=False)
     return test_df
 
 def show_bias_visualizations(test_df):
@@ -104,11 +109,13 @@ def show_bias_visualizations(test_df):
 
     # Department-wise bias
     biased_reviews_per_dept = test_df[test_df['predicted_bias_flag'].isin(biased_labels)]
+    st.write("### Department-wise Bias Type Distribution")
     dept_bias = biased_reviews_per_dept.groupby('department')['predicted_bias_flag'].count().sort_values(ascending=False)
     st.bar_chart(dept_bias)
 
     # Manager-wise bias
     manager_bias = biased_reviews_per_dept.groupby('manager_name')['predicted_bias_flag'].count().sort_values(ascending=False).head(5)
+    st.write("### Top 5 biased managers")
     st.bar_chart(manager_bias)
 
     # Gender-wise bias type distribution
