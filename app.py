@@ -3,7 +3,7 @@ import os
 from tabs import (
     blind_recruitment, diverse_sourcing, bias_detection_feedback,
     data_driven_promotions, salary_audits, sentiment_analysis,
-    network_analysis, smart_matching
+    network_analysis, smart_matching, hiring_insights
 )
 
 st.set_page_config(page_title="B.R.I.D.G.E.", layout="wide")
@@ -31,14 +31,15 @@ section = st.sidebar.radio("Choose a Section:", [
 tab_options = {
     "Recruitment & Hiring": {
         "AI-Powered Blind Recruitment": blind_recruitment,
-        "Diverse Candidate Sourcing": diverse_sourcing
+        "Diverse Candidate Sourcing": diverse_sourcing,
+        "Hiring Insights": hiring_insights
     },
     "Manager Feedback & Promotions": {
         "Bias Detection in Feedback": bias_detection_feedback,
         "Data-Driven Promotions": data_driven_promotions,
         "AI-Powered Salary Audits": salary_audits
     },
-    "Workplace Culture": {
+        "Workplace Culture": {
         "Sentiment Analysis in Surveys": sentiment_analysis,
         "Network Analysis": network_analysis,
         "Smart Matching for Mentorship": smart_matching

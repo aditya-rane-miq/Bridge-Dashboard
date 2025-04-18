@@ -40,3 +40,20 @@ def run():
 
         st.subheader("📄 Generated Unbiased Job Description")
         st.code(jd, language='markdown')
+
+        # Bias detection section
+        st.subheader("🔍 Bias Analysis in Company Culture")
+
+        with st.spinner("Analyzing company info for biased language..."):
+            rule_based_flags = jd_writer.detect_biased_language(company_info)
+            ai_feedback = jd_writer.ai_detect_biased_language(company_info)
+
+        if rule_based_flags:
+            st.markdown("### 🚨 Rule-Based Bias Flags Detected")
+            for category, terms in rule_based_flags.items():
+                st.write(f"**{category.replace('_', ' ').title()}**: {', '.join(terms)}")
+        else:
+            st.success("✅ No common bias patterns found using rule-based detection.")
+
+        st.markdown("### 🤖 AI-Powered Feedback")
+        st.info(ai_feedback)

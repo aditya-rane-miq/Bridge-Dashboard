@@ -23,9 +23,9 @@
 - **Salary Audit AI:** Detects and addresses pay disparities by analyzing role, experience, and performance data.
 
 ### 🏢 Workplace Culture & Growth
-- **Sentiment Analysis:** Extracts gender-based engagement trends from employee surveys using NLP.
+- **Sentiment Analysis:** This tool analyzes employee engagement survey data to provide insights into sentiment, job satisfaction, Engagement Heatscore and inclusion. It highlights performance gaps across demographics, identifies at-risk groups, and surfaces key engagement themes. An AI-generated executive summary, powered by a Large Language Model (LLM), offers actionable recommendations for leadership to improve engagement.
 - **Collaboration Network Mapping:** Ensures equal access to high-visibility, high-impact projects.
-- **Smart Mentorship Matching:** Connects women with aligned mentors and suggests reverse mentoring pathways.
+- **Smart Mentorship Matching:** Connects individuals with mentors based on skills, goals, and experience—regardless of gender. Suggests reverse mentoring opportunities and personalized training resources to support growth in key development areas.
 
 ---
 
@@ -33,11 +33,30 @@
 
 - **Languages:** Python  
 - **Libraries:** spaCy, Transformers, Scikit-learn, Pandas, NetworkX, Matplotlib  
-- **NLP Models:** BERT, RoBERTa (via HuggingFace)  
+- **NLP Models:** BERT, RoBERTa (via HuggingFace), Mistral-7B-Instruct-v0.3, all-MiniLM-L6-v2
 - **Deployment (optional):** Streamlit / Flask  
-- **Data Sources:** Resume sets, employee reviews, survey results (mock or real)
+- **Data Sources:** Resume sets, employee reviews, survey results (mock or real) , HR Data (mock or real) , LMS Data (mock or real), Performance data from Yearly Goals/PI review (mock or real),Individual development plan of employee data (mock or real)
+
 
 ---
+## 📋 Instruction to Run the Application
 
-## 📁 Project Structure
+- **Run Application on Local machine** -> 
+  You can clone this in your local machine using this in your terminal -
+  - git clone https://github.com/aditya-rane-miq/Bridge-Dashboard.git
+  - cd Bridge-Dashboard
+  - create virtual venv
+  - pip install -r requirements.txt
+  - streamlit run app.py
+- **Recruitment & Hiring -> Hiring Insights:** Manually upload the file 'All Months Hiring Data.xlsx' to run the analysis .
+- **Workplace culture -> Sentiment Analysis in Survey :** Manually Upload the file 'Engagement_survey_Raw_data.xlsx' provided under Bridge-Dashboard folder to run the tool  
+- **Workplace culture -> Smart Matching for Mentorship :** The 'Inclusive_Mentorship_Program_Raw_data.xlsx' file from the Bridge-Dashboard folder is automatically read by the tool, so no manual upload is necessary. The tool will prompt the user for certain inputs via the UI.
+
+
+
+## 🌍 UI Integration
+
+![image](https://github.com/user-attachments/assets/e3c7bf18-c08b-4f5f-b3fd-493221e76218)
+
+
 
