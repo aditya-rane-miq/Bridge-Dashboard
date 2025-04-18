@@ -17,11 +17,6 @@
 - **Bias-Free Job Descriptions:** Flags exclusionary language and suggests neutral alternatives.
 - **Diverse Candidate Outreach:** Recommends job postings to underrepresented gender groups using AI-driven matching.
 
-### 📈 Feedback, Promotions & Pay Equity
-- **Bias Detection in Reviews:** Flags subjective, gendered feedback (e.g., "too emotional" vs. "passionate").
-- **Promotion Readiness Engine:** Surfaces overlooked candidates based on project impact, leadership roles, and peer feedback.
-- **Salary Audit AI:** Detects and addresses pay disparities by analyzing role, experience, and performance data.
-
 ### 🏢 Workplace Culture & Growth
 - **Sentiment Analysis:** This tool analyzes employee engagement survey data to provide insights into sentiment, job satisfaction, Engagement Heatscore and inclusion. It highlights performance gaps across demographics, identifies at-risk groups, and surfaces key engagement themes. An AI-generated executive summary, powered by a Large Language Model (LLM), offers actionable recommendations for leadership to improve engagement.
 - **Collaboration Network Mapping:** Ensures equal access to high-visibility, high-impact projects.
