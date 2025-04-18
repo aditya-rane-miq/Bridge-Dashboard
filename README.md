@@ -41,15 +41,22 @@
 ---
 ## 📋 Instruction to Run the Application
 
+- **Run Application on Local machine** -> 
+  You can clone this in your local machine using this in your terminal -
+  - git clone https://github.com/aditya-rane-miq/Bridge-Dashboard.git
+  - cd Bridge-Dashboard
+  - create virtual venv
+  - pip install -r requirements.txt
+  - streamlit run app.py
+- **Recruitment & Hiring -> Hiring Insights:** Manually upload the file 'All Months Hiring Data.xlsx' to run the analysis .
 - **Workplace culture -> Sentiment Analysis in Survey :** Manually Upload the file 'Engagement_survey_Raw_data.xlsx' provided under Bridge-Dashboard folder to run the tool  
 - **Workplace culture -> Smart Matching for Mentorship :** The 'Inclusive_Mentorship_Program_Raw_data.xlsx' file from the Bridge-Dashboard folder is automatically read by the tool, so no manual upload is necessary. The tool will prompt the user for certain inputs via the UI.
 
 
-## 📁 Project Structure
 
 ## 🌍 UI Integration
 
-![image](https://github.com/user-attachments/assets/87eb6333-2c4f-43f8-a64d-4e1a4fe5ef16)
+![image](https://github.com/user-attachments/assets/e3c7bf18-c08b-4f5f-b3fd-493221e76218)
 
 
 
