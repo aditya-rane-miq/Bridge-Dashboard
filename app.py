@@ -24,7 +24,6 @@ with st.sidebar:
 st.sidebar.title("📌 Navigation")
 section = st.sidebar.radio("Choose a Section:", [
     "Recruitment & Hiring",
-    "Manager Feedback & Promotions",
     "Workplace Culture"
 ])
 
@@ -33,11 +32,6 @@ tab_options = {
         "AI-Powered Blind Recruitment": blind_recruitment,
         "Diverse Candidate Sourcing": diverse_sourcing,
         "Hiring Insights": hiring_insights
-    },
-    "Manager Feedback & Promotions": {
-        "Bias Detection in Feedback": bias_detection_feedback,
-        "Data-Driven Promotions": data_driven_promotions,
-        "AI-Powered Salary Audits": salary_audits
     },
         "Workplace Culture": {
         "Sentiment Analysis in Surveys": sentiment_analysis,
