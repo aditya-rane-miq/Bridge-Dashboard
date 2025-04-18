@@ -49,4 +49,7 @@
 
 ## 🌍 UI Integration
 
+![image](https://github.com/user-attachments/assets/87eb6333-2c4f-43f8-a64d-4e1a4fe5ef16)
+
+
 
