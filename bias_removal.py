@@ -10,7 +10,7 @@ import json
 load_dotenv()
 
 client = openai.OpenAI(
-    api_key="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",
+    api_key="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",
     base_url="https://openrouter.ai/api/v1"
 )
 
